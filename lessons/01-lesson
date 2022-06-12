@@ -1,0 +1,61 @@
+show databases ;
+use dmkur;
+show tables ;
+
+create table users
+(
+    id int not null primary key,
+    name varchar(100) not null,
+    age int not null ,
+    gender varchar(6) not null
+);
+insert into users values(null,'Max', 16, 'male');
+
+select * from users;
+select * from users where name='Oleg';
+select * from users where gender='male';
+
+select * from users where name like 'o%';
+select * from users where name like '%o%';
+# skipp "__" 2 symbols 3th will be "e" next no mater
+select * from users where name like '__e%';
+select * from users where name like '_i%n_';
+
+select * from users where age=4;
+select * from users where age!=4;
+select * from users where age>4;
+select * from users where age>30 and age<=50;
+select * from users where age between 30 and 50;
+select * from users where age between 30 and 50 or name='Max';
+select * from users where age between 30 and 50 and gender='male' or name='Lina';
+
+select * from users where age in(30,19,50);
+
+select * from users where length(name) >= 5 ;
+# show only columns age & name
+select name, age from users where length(name) >= 5 ;
+
+# order by or filter
+# from 1 to 100, A to Z
+select * from users order by id;
+# from 100 to 1, Z to A
+select * from users order by id desc ;
+
+# limits or pagination
+# show only 2 first
+select * from users where gender='female' order by id desc limit 2;
+
+# pagination, offset - means skip info
+# first 2
+select * from users limit 2;
+# then next 2, except first 2, that is 3 and 4 users
+select * from users limit 2 offset 2;
+# then next 2, except first 4, that is 5 and 6 users
+select * from users limit 2 offset 4;
+
+
+# aggregations functions
+# MIN MAX AVG COUNT
+select max(age) as maxAge from users;
+select count(age) as count, gender from users group by gender;
+
