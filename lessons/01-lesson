@@ -71,3 +71,11 @@ delete from users where name like 'Kokos';
 
 # Update data
 update users set age=2 where id=1;
+
+# distinct - unique data
+select distinct name from users;
+
+# union - об'єднання
+select min(age) from users
+union
+select max(age) from users;
