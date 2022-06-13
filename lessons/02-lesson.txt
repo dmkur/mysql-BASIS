@@ -1,0 +1,72 @@
+# Lesson - 2
+
+#  RELATIVES BETWEEN TABLES
+    # 1:1 (ONE TO ONE)
+create table users
+(
+    id         int primary key auto_increment,
+    username   varchar(255) not null,
+    password   varchar(255) not null,
+    profile_id int          not null unique,
+    foreign key (profile_id) references profile (id)
+);
+
+create table profile
+(
+    id      int primary key auto_increment,
+    name    varchar(100) not null,
+    surname varchar(100) not null,
+    age     int          not null default 18
+);
+
+
+select *
+from users
+         join profile p on users.profile_id = p.id;
+
+select users.id,
+       users.username,
+       profile.*
+from users
+         join profile on users.profile_id = profile.id;
+
+
+#  RELATIVES BETWEEN TABLES
+    # 1:many (ONE TO many)
+
+create table cities
+(
+    id   int primary key auto_increment,
+    city varchar(100) null
+);
+
+create table users
+(
+    id      int primary key auto_increment,
+    name    varchar(100) not null,
+    age     int          not null,
+    city_id int          null,
+    foreign key (city_id) references cities (id)
+);
+
+# inner join
+# It means if user doesn't have city or vise versa
+# data will be lost
+select *
+from users u
+         join cities c on c.id = u.city_id;
+
+# left inner
+# prefer info from left table
+# means you can see user without cities
+select *
+from users u
+         left join cities c on c.id = u.city_id;
+
+# right inner
+# prefer info from right table
+# means you can see cities without users
+select *
+from users u
+         right join cities c on c.id = u.city_id;
+
