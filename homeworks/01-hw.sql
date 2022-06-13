@@ -44,4 +44,4 @@ select * from cars where model like '_a%a_';
 select * from cars where length(model) > 8;
 
 # ***знайти машини ціна яких більше чем ціни среднього арифметичного усіх машині
-select avg(price), model from cars where price > 3000 group by model
+select * from cars where price > (select avg(price) from cars);
